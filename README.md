@@ -1,5 +1,7 @@
 # LYS Blog
 
+作者自己的博客托管平台。
+
 A personal blog built with Astro.
 
 ## Commands
