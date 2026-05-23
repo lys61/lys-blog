@@ -1,0 +1,24 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog')).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+const getPostSlug = (id) => id.replace(/\.md$/, '');
+---
+<BaseLayout title="文章 | LYS Blog" description="LYS Blog 的文章归档。">
+  <section class="page-title">
+    <p class="eyebrow">Archive</p>
+    <h1>文章</h1>
+  </section>
+  <div class="post-list wide">
+    {posts.map((post) => (
+      <article class="post-card">
+        <p>{post.data.pubDate.toLocaleDateString('zh-CN')}</p>
+        <h2><a href={`/blog/${getPostSlug(post.id)}/`}>{post.data.title}</a></h2>
+        <span>{post.data.description}</span>
+      </article>
+    ))}
+  </div>
+</BaseLayout>

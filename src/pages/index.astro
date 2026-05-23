@@ -1,0 +1,39 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog')).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+const latestPosts = posts.slice(0, 3);
+const getPostSlug = (id) => id.replace(/\.md$/, '');
+---
+<BaseLayout title="LYS Blog" description="记录代码、想法和长期沉淀的个人博客。">
+  <section class="hero">
+    <p class="eyebrow">Personal Notes</p>
+    <h1>把零散想法，写成可以回头看的东西。</h1>
+    <p class="hero-copy">
+      这里会放技术实践、项目记录、阅读笔记和一些阶段性思考。先保持轻量，慢慢长成自己的资料库。
+    </p>
+    <div class="hero-actions">
+      <a class="button primary" href="/blog">阅读文章</a>
+      <a class="button secondary" href="/about">了解我</a>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-heading">
+      <h2>最新文章</h2>
+      <a href="/blog">全部文章</a>
+    </div>
+    <div class="post-list">
+      {latestPosts.map((post) => (
+        <article class="post-card">
+          <p>{post.data.pubDate.toLocaleDateString('zh-CN')}</p>
+          <h3><a href={`/blog/${getPostSlug(post.id)}/`}>{post.data.title}</a></h3>
+          <span>{post.data.description}</span>
+        </article>
+      ))}
+    </div>
+  </section>
+</BaseLayout>
