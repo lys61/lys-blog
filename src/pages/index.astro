@@ -5,19 +5,23 @@ import { getCollection } from 'astro:content';
 const posts = (await getCollection('blog')).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 );
+const diaries = (await getCollection('diary')).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
 const latestPosts = posts.slice(0, 3);
-const getPostSlug = (id) => id.replace(/\.md$/, '');
+const latestDiaries = diaries.slice(0, 2);
+const getSlug = (id) => id.replace(/\.md$/, '');
 ---
-<BaseLayout title="LYS Blog" description="记录代码、想法和长期沉淀的个人博客。">
+<BaseLayout title="LYS Blog" description="记录代码、想法、日记和长期沉淀的个人博客。">
   <section class="hero">
     <p class="eyebrow">Personal Notes</p>
     <h1>把零散想法，写成可以回头看的东西。</h1>
     <p class="hero-copy">
-      这里会放技术实践、项目记录、阅读笔记和阶段性思考。保持轻量，持续积累，慢慢长成自己的资料库。
+      这里会放技术实践、项目记录、阅读笔记、日常记录和阶段性思考。保持轻量，持续积累，慢慢长成自己的资料库。
     </p>
     <div class="hero-actions">
       <a class="button primary" href="/blog">阅读文章</a>
-      <a class="button secondary" href="/about">了解我</a>
+      <a class="button secondary" href="/diary">查看日记</a>
     </div>
   </section>
 
@@ -33,8 +37,27 @@ const getPostSlug = (id) => id.replace(/\.md$/, '');
       {latestPosts.map((post) => (
         <article class="post-card">
           <p class="post-date">{post.data.pubDate.toLocaleDateString('zh-CN')}</p>
-          <h3><a href={`/blog/${getPostSlug(post.id)}/`}>{post.data.title}</a></h3>
+          <h3><a href={`/blog/${getSlug(post.id)}/`}>{post.data.title}</a></h3>
           <span>{post.data.description}</span>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section compact-section">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Diary</p>
+        <h2>最近日记</h2>
+      </div>
+      <a href="/diary">全部日记</a>
+    </div>
+    <div class="diary-strip">
+      {latestDiaries.map((diary) => (
+        <article class="diary-card">
+          <p class="post-date">{diary.data.pubDate.toLocaleDateString('zh-CN')}</p>
+          <h3><a href={`/diary/${getSlug(diary.id)}/`}>{diary.data.title}</a></h3>
+          <span>{diary.data.description}</span>
         </article>
       ))}
     </div>

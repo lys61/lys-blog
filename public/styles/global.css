@@ -223,10 +223,113 @@ h1 {
   color: var(--muted);
 }
 
+.compact-section {
+  padding-top: 16px;
+}
+
+.diary-strip {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.diary-card {
+  min-height: 170px;
+  padding: 24px;
+  background: var(--soft);
+  border: 1px solid #cfdbd2;
+  border-radius: 8px;
+}
+
+.diary-card h3 {
+  margin-bottom: 10px;
+  font-size: 22px;
+  line-height: 1.3;
+}
+
+.diary-card span,
+.meta-row {
+  color: var(--muted);
+}
+
+.diary-entry-card {
+  min-height: 190px;
+}
+
+.meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 16px;
+  margin-top: 18px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.diary-article header .meta-row {
+  margin-top: 22px;
+}
+
 .content-section {
   max-width: 760px;
   color: var(--muted);
   font-size: 18px;
+}
+
+.writer-app {
+  max-width: 900px;
+  padding-bottom: 64px;
+}
+
+.writer-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.writer-app label {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 16px;
+  color: var(--text);
+  font-weight: 800;
+}
+
+.writer-app input,
+.writer-app select,
+.writer-app textarea {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+  color: var(--text);
+  font: inherit;
+}
+
+.writer-app input,
+.writer-app select {
+  min-height: 44px;
+  padding: 0 12px;
+}
+
+.writer-app textarea {
+  resize: vertical;
+  padding: 12px;
+  line-height: 1.65;
+}
+
+.writer-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 8px 0 18px;
+}
+
+.writer-actions button {
+  cursor: pointer;
+}
+
+.writer-tip {
+  color: var(--muted);
 }
 
 .article {
@@ -349,6 +452,7 @@ h1 {
   }
 
   nav {
+    flex-wrap: wrap;
     gap: 16px;
   }
 
@@ -365,6 +469,11 @@ h1 {
   }
 
   .post-list {
+    grid-template-columns: 1fr;
+  }
+
+  .diary-strip,
+  .writer-grid {
     grid-template-columns: 1fr;
   }
 

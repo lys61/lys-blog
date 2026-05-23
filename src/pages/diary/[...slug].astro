@@ -1,0 +1,32 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const diaries = await getCollection('diary');
+  return diaries.map((diary) => ({
+    params: { slug: diary.id.replace(/\.md$/, '') },
+    props: { diary }
+  }));
+}
+
+const { diary } = Astro.props;
+const { Content } = await render(diary);
+---
+<BaseLayout title={`${diary.data.title} | LYS Blog`} description={diary.data.description}>
+  <article class="article diary-article">
+    <a class="back-link" href="/diary">返回日记列表</a>
+    <header>
+      <p class="eyebrow">{diary.data.pubDate.toLocaleDateString('zh-CN')}</p>
+      <h1>{diary.data.title}</h1>
+      <p>{diary.data.description}</p>
+      <div class="meta-row">
+        {diary.data.mood && <span>心情：{diary.data.mood}</span>}
+        {diary.data.weather && <span>天气：{diary.data.weather}</span>}
+      </div>
+    </header>
+    <div class="article-body">
+      <Content />
+    </div>
+  </article>
+</BaseLayout>

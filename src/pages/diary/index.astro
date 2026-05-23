@@ -1,0 +1,29 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const diaries = (await getCollection('diary')).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+const getSlug = (id) => id.replace(/\.md$/, '');
+---
+<BaseLayout title="日记 | LYS Blog" description="LYS Blog 的公开日记和随笔。">
+  <section class="page-title">
+    <p class="eyebrow">Diary</p>
+    <h1>日记</h1>
+    <p>这里放更轻的记录：当天的状态、想法、过程和一些还没长成文章的碎片。</p>
+  </section>
+  <div class="post-list wide">
+    {diaries.map((diary) => (
+      <article class="post-card diary-entry-card">
+        <p class="post-date">{diary.data.pubDate.toLocaleDateString('zh-CN')}</p>
+        <h2><a href={`/diary/${getSlug(diary.id)}/`}>{diary.data.title}</a></h2>
+        <span>{diary.data.description}</span>
+        <div class="meta-row">
+          {diary.data.mood && <span>心情：{diary.data.mood}</span>}
+          {diary.data.weather && <span>天气：{diary.data.weather}</span>}
+        </div>
+      </article>
+    ))}
+  </div>
+</BaseLayout>
