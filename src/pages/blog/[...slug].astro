@@ -15,6 +15,7 @@ const { Content } = await render(post);
 ---
 <BaseLayout title={`${post.data.title} | LYS Blog`} description={post.data.description}>
   <article class="article">
+    <a class="back-link" href="/blog">返回文章列表</a>
     <header>
       <p class="eyebrow">{post.data.pubDate.toLocaleDateString('zh-CN')}</p>
       <h1>{post.data.title}</h1>
