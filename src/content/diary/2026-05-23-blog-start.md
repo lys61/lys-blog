@@ -10,3 +10,4 @@ tags: ["日记", "博客"]
 今天把个人博客重新跑起来了。
 
 从旧的仓库开始，重新搭了 Astro 项目，推到了 GitHub，又接到了 Cloudflare Pages。中间有一些小问题，比如 Git 证书、Cloudflare Pages 入口、Astro 版本变化，但最后都解决了。
+终于把域名搞定了。
